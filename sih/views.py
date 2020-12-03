@@ -42,6 +42,19 @@ class login(APIView):
         return Response('invalid username and password try again')
 
 
+class resetpassword(APIView):
+
+    def post(self,request):
+        serializer=resetpasswordSerializer(data=request.data)
+        alldatas={}
+        if serializer.is_valid(raise_exception=True):
+            mname=serializer.save()
+            alldatas['data']=mname.email
+            print(alldatas)
+            return Response(alldatas)
+        return Response('failed to get')
+
+
 class logout(APIView):
 
     def get(self,request):

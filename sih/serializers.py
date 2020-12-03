@@ -64,6 +64,29 @@ class loginSerializer(serializers.ModelSerializer):
                 raise serializers.ValidationError({'user':'please enter valid user credentails'})
         else:
             raise serializers.ValidationError({'error':'username and password not to be blank'})
-    
 
-    
+class resetpasswordSerializer(serializers.ModelSerializer):
+    username=serializers.CharField(max_length=100)
+    password=serializers.CharField(max_length=100)
+
+    class Meta:
+        model=User
+        fields='__all__'
+
+
+    def save(self):
+        username=self.validated_data['username']
+        password=self.validated_data['password']
+        if User.objects.filter(username=username).exists():
+            user=User.objects.get(username=username)
+            user.set_password(password)
+            user.save()
+            # for i in user:
+            #     ruser=User.objects.get(pk=i.pk)
+            #     ruser.set_password(password)
+            #user.set_password(password)
+            return user
+        else:
+            return 'no value'
+  
+
