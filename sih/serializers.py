@@ -81,12 +81,8 @@ class resetpasswordSerializer(serializers.ModelSerializer):
             user=User.objects.get(username=username)
             user.set_password(password)
             user.save()
-            # for i in user:
-            #     ruser=User.objects.get(pk=i.pk)
-            #     ruser.set_password(password)
-            #user.set_password(password)
             return user
         else:
-            return 'no value'
+            raise serializers.ValidationError({'error':'please enter valid crendentials'})
   
 

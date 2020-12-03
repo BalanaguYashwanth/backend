@@ -49,10 +49,10 @@ class resetpassword(APIView):
         alldatas={}
         if serializer.is_valid(raise_exception=True):
             mname=serializer.save()
-            alldatas['data']=mname.email
+            alldatas['data']='successfully registered'
             print(alldatas)
             return Response(alldatas)
-        return Response('failed to get')
+        return Response('failed retry after some time')
 
 
 class logout(APIView):
